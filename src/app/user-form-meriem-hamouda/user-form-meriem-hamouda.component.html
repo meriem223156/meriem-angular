@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="card mt-5 mb-5">
+    <div class="card-body bg-light">
+
+      <h5 class="card-title text-center">Ajouter un Utilisateur</h5>
+
+      <form [formGroup]="addUserForm">
+
+        <!-- Nom -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Nom :</label>
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="Nom de l'utilisateur"
+            class="form-control"
+            id="name">
+
+          <div class="alert alert-danger m-2"
+               *ngIf="name?.errors?.['required'] && (name?.dirty || name?.touched)">
+            Le nom est requis.
+          </div>
+
+          <div class="alert alert-danger m-2"
+               *ngIf="name?.errors?.['minlength'] && (name?.dirty || name?.touched)">
+            Le nom doit contenir au moins 3 caractères.
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email :</label>
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="Email de l'utilisateur"
+            class="form-control"
+            id="email">
+
+          <div class="alert alert-danger m-2"
+               *ngIf="email?.errors?.['required'] && (email?.dirty || email?.touched)">
+            L’email est requis.
+          </div>
+
+          <div class="alert alert-danger m-2"
+               *ngIf="email?.errors?.['email'] && (email?.dirty || email?.touched)">
+            Format d’email invalide.
+          </div>
+        </div>
+
+        <!-- Rôle -->
+        <div class="mb-3">
+          <label for="role" class="form-label">Rôle :</label>
+          <select formControlName="role" class="form-select" id="role">
+            <option value="">-- Choisir un rôle --</option>
+            <option *ngFor="let role of roles" [value]="role">
+              {{ role }}
+            </option>
+          </select>
+
+          <div class="alert alert-danger m-2"
+               *ngIf="role?.errors?.['required'] && (role?.dirty || role?.touched)">
+            Le rôle est requis.
+          </div>
+        </div>
+
+        <!-- Statut -->
+        <div class="mb-3">
+          <label for="status" class="form-label">Statut :</label>
+          <input
+            type="text"
+            formControlName="status"
+            readonly
+            class="form-control"
+            id="status">
+        </div>
+
+        <!-- Bouton -->
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="addUserForm.invalid"
+          (click)="submitUser()">
+          Ajouter
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
